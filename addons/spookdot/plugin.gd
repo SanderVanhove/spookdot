@@ -3,20 +3,53 @@ extends EditorPlugin
 
 
 var SpiderScene: PackedScene = preload("res://addons/spookdot/Spider.tscn")
+var PumpkinScene: PackedScene = preload("res://addons/spookdot/Pumpkin.tscn")
+var WebScene: PackedScene = preload("res://addons/spookdot/Web.tscn")
 
 
-var _spider_timer: SceneTreeTimer
+var _prop_timer: SceneTreeTimer
+
+
+var _props: Array = []
 
 
 func _enter_tree():
-	create_spider_timer()
-	
-	
-func create_spider_timer():
-	_spider_timer = get_tree().create_timer(2)
-	_spider_timer.connect("timeout", self, "spawn_spider")
+	create_prop_timer()
 
 
-func spawn_spider():
-	var spider = SpiderScene.instance()
-	get_parent().get_parent().add_child(spider)
+func _exit_tree():
+	randomize()
+	
+	for prop in _props:
+		if is_instance_valid(prop):
+			prop.queue_free()
+
+
+func _input(event):
+	create_prop_timer(120)
+
+
+func create_prop_timer(min_time: float = 0):
+	if _prop_timer:
+		_prop_timer.disconnect("timeout", self, "spawn_prop")
+		
+	_prop_timer = get_tree().create_timer(rand_range(min_time + 30, min_time + 60))
+	_prop_timer.connect("timeout", self, "spawn_prop")
+
+
+func spawn_prop():
+	var prop: Node2D
+	var rand_num: float = randf()
+	
+	if rand_num < .5:
+		prop = SpiderScene.instance()
+	elif rand_num < .8:
+		prop = PumpkinScene.instance()
+	else:
+		prop = WebScene.instance()
+		
+	_props.append(prop)
+
+	get_tree().root.add_child(prop)
+
+	create_prop_timer()
