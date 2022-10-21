@@ -5,7 +5,7 @@
 
 [sub_resource type="Animation" id=5]
 resource_name = "Appear"
-length = 3.0
+length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
 tracks/0/interp = 1
@@ -13,7 +13,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 3 ),
+"times": PoolRealArray( 0, 2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
@@ -81,6 +81,8 @@ tracks/0/keys = {
 }
 
 [node name="Web" type="Node2D"]
+position = Vector2( 0, 933 )
+scale = Vector2( 1.20266, 1.20266 )
 z_index = 4096
 script = ExtResource( 2 )
 

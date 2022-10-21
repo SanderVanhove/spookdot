@@ -19,7 +19,7 @@ func _enter_tree():
 
 func _exit_tree():
 	randomize()
-	
+
 	for prop in _props:
 		if is_instance_valid(prop):
 			prop.queue_free()
@@ -32,22 +32,22 @@ func _input(event):
 func create_prop_timer(min_time: float = 0):
 	if _prop_timer:
 		_prop_timer.disconnect("timeout", self, "spawn_prop")
-		
-	_prop_timer = get_tree().create_timer(rand_range(min_time + 30, min_time + 60))
+
+	_prop_timer = get_tree().create_timer(rand_range(min_time + 120, min_time + 180))
 	_prop_timer.connect("timeout", self, "spawn_prop")
 
 
 func spawn_prop():
 	var prop: Node2D
 	var rand_num: float = randf()
-	
+
 	if rand_num < .5:
 		prop = SpiderScene.instance()
 	elif rand_num < .8:
 		prop = PumpkinScene.instance()
 	else:
 		prop = WebScene.instance()
-		
+
 	_props.append(prop)
 
 	get_tree().root.add_child(prop)

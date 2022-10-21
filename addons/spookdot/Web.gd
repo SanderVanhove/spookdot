@@ -20,16 +20,16 @@ func _ready():
 			0,
 			get_viewport().size.y
 		)
-		
+
 	var rand_scale: float = rand_range(.6, 1.4)
 	scale = Vector2(rand_scale, rand_scale)
-	
+
 	_animation_player.play("Appear")
 
 
 func _on_Control_mouse_entered():
-	_animation_player.play("Appear", -1, -1, true)
-	
+	_animation_player.play("Appear", -1, -4, true)
+
 	yield(_animation_player, "animation_finished")
-	
+
 	queue_free()
